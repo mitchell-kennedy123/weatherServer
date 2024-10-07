@@ -2,10 +2,7 @@ package getclient;
 
 import common.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -77,7 +74,7 @@ public class GetClient implements NetworkNode, Runnable {
     private String jsonHttpRequest() {
         HttpWriter httpWriter = new HttpWriter();
         if (stationID!=null) {
-            httpWriter.addHeader("Content-Server-Id", stationID);
+            httpWriter.addHeader("Station-Id", stationID);
         }
 
         return httpWriter
@@ -92,14 +89,33 @@ public class GetClient implements NetworkNode, Runnable {
         try {
             // Send the HTTP request
             String httpRequest = jsonHttpRequest();
-            sendGetRequest(httpRequest);
-        }
-        catch(Exception e) {
-            logger.log(Level.SEVERE, "Error while making Get Request for Station ID: " + stationID, e);
+            String httpResponse = sendGetRequest(httpRequest);
+
+            if (httpResponse == null) {//TODO try again
+                return;
+            }
+            // Safely split the response
+            String[] httpsParts = httpResponse.split("\\{", 2); // Split only at the first occurrence of '{'
+            String data = (httpsParts.length > 1) ? "{" + httpsParts[1] : null; // Ensure the JSON part is correctly formatted
+
+            // Display Data
+            String outputStr;
+            if (data != null) {
+                WeatherDataSerializer weatherData = WeatherDataSerializer.extractDataFromJson(data);
+                outputStr = weatherData.toTxt();
+            } else {
+                outputStr = "No Data Found";
+            }
+            System.out.println("Data Received from: " + serverAddress + "\n\n" + outputStr);
+
+        } catch (Exception e) {
+            // Handle exceptions and print errors
+            System.err.println("Error while making GET request: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    private void sendGetRequest(String httpRequest) {
+    private String sendGetRequest(String httpRequest) {
         logger.info("Sending GET request to " + serverAddress + ":" + port + " for Station ID: " + stationID);
         try (Socket socket = new Socket(serverAddress, port);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -118,7 +134,7 @@ public class GetClient implements NetworkNode, Runnable {
             } else {
                 logger.info("No server response.");
                 // TODO: Retry after some amount of time
-                return;
+                return null;
             }
 
             // Extract HTTP status code from the status line
@@ -133,11 +149,10 @@ public class GetClient implements NetworkNode, Runnable {
             // Log the server's response
             logger.info("Server response: " + response.toString());
 
-            // Handle the response based on the status code
-            // handleResponse(statusCode, response.toString());
-
+            return response.toString();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error while sending PUT request", e);
+            return null;
         }
     }
 

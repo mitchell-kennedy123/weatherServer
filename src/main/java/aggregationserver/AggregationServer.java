@@ -4,6 +4,7 @@ import common.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.*;
 
 
@@ -16,6 +17,7 @@ public class AggregationServer implements NetworkNode, Runnable {
   private final int port;
   private final LamportClock lamportClock;
   private boolean isRunning;
+  private ServerSocket serverSocket;
   private final FileManager fileManager; // Add the FileManager
 
   public AggregationServer(String serverAddress, int port) {
@@ -38,8 +40,17 @@ public class AggregationServer implements NetworkNode, Runnable {
   @Override
   public boolean shutdown() {
     isRunning = false;
-    fileManager.shutdown(); // Shutdown the FileManager
-    logger.info("Aggregation Server shutting down.");
+    try {
+      // Close the server socket to unblock the accept() call
+      if (serverSocket != null && !serverSocket.isClosed()) {
+        serverSocket.close();
+      }
+      fileManager.shutdown(); // Shutdown the FileManager
+      logger.info("Aggregation Server shutting down.");
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Error while shutting down the server socket", e);
+      return false;
+    }
     return true;
   }
 
@@ -86,20 +97,35 @@ public class AggregationServer implements NetworkNode, Runnable {
 
   // Handle incoming GET requests
   public int handleGetRequest(HttpReader request, BufferedReader in, PrintWriter out) {
-    // Check the requested path
-    if (false) {
-      // You can fetch or generate the weather data here
-     // TODO use file manager to avoid race conditions
-      //String weatherData = getWeatherData(request);
+    String stationId = request.getHeader("Station-Id");
 
-      // Send the response with weather data
-      sendResponse(out, 200, "OK", "This will be the data");
+    try {
+      String weatherData;
+      if (stationId == null) {
+        // If stationId is null, get the most recent file
+        weatherData = fileManager.getMostRecentFile();
+        if (weatherData == null) {
+          logger.severe("No recent file found.");
+          sendResponse(out, 404, "Not Found", "{\"error\":\"No recent data found\"}");
+          return 404; // HTTP 404 Not Found
+        }
+      } else {
+        // Otherwise, get data for the specific station ID
+        weatherData = fileManager.readWeatherData(stationId);
+        if (weatherData == null) {
+          logger.severe("Data for station ID " + stationId + " not found.");
+          sendResponse(out, 404, "Not Found", "{\"error\":\"Resource not found\"}");
+          return 404; // HTTP 404 Not Found
+        }
+      }
+
+      sendResponse(out, 200, "OK", weatherData);
       return 200; // HTTP 200 OK
 
-    } else {
-      logger.severe("Unknown path requested: " );
-      sendResponse(out,404, "Not Found", "{\"error\":\"Resource not found\"}");
-      return 404; // HTTP 404 Not Found
+    } catch (IOException e) {
+      logger.log(Level.SEVERE, "Error reading data", e);
+      sendResponse(out, 500, "Internal Server Error", "{\"error\":\"Internal server error\"}");
+      return 500; // HTTP 500 Internal Server Error
     }
   }
 
@@ -119,7 +145,8 @@ public class AggregationServer implements NetworkNode, Runnable {
 
   // Start listening for incoming connections
   private void listen() {
-    try (ServerSocket serverSocket = new ServerSocket(port)) {
+    try {
+      serverSocket = new ServerSocket(port);
       logger.info("Server is listening on port " + port);
       while (isRunning) {
         Socket clientSocket = serverSocket.accept();

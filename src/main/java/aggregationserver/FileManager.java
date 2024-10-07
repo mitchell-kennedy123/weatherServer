@@ -53,6 +53,48 @@ public class FileManager {
         processRemainingRequests();
     }
 
+    public String readWeatherData(String stationId) throws IOException {
+        String filePath = storageDirectory + "/" + stationId + ".json";
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            logger.warning("Requested data for station ID: " + stationId + " does not exist.");
+            return null; // Handle this scenario appropriately in your GET request handler
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+            logger.info("Successfully read data for station ID: " + stationId);
+            return content.toString();
+        }
+    }
+
+    public String getMostRecentFile() throws IOException {
+        if (lastUpdateTimestamps.isEmpty()) {
+            logger.warning("No files available to retrieve.");
+            return null;
+        }
+
+        // Find the station ID with the most recent timestamp
+        Map.Entry<String, Long> mostRecentEntry = lastUpdateTimestamps.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(null); // Return null if no entries exist
+
+        if (mostRecentEntry == null) {
+            logger.warning("No recent file found.");
+            return null;
+        }
+
+        String stationId = mostRecentEntry.getKey();
+        logger.info("Most recent file found for station ID: " + stationId);
+        return readWeatherData(stationId); // Return the contents of the most recent file
+    }
+
     public void addWriteRequest(WriteRequest request) {
         try {
             writeQueue.put(request);

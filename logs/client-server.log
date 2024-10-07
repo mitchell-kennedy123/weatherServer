@@ -1,73 +1,16 @@
-Oct 06, 2024 11:15:59 PM getclient.GetClient startup
+Oct 07, 2024 11:36:15 AM getclient.GetClient startup
 INFO: Server started on localhost:4567 for Station ID: null
-Oct 06, 2024 11:15:59 PM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:36:15 AM getclient.GetClient sendGetRequest
 INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 06, 2024 11:15:59 PM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:36:15 AM getclient.GetClient sendGetRequest
 INFO: No server response.
-Oct 06, 2024 11:15:59 PM getclient.GetClient shutdown
+Oct 07, 2024 11:36:15 AM getclient.GetClient shutdown
 INFO: Server shut down successfully.
-Oct 06, 2024 11:16:50 PM getclient.GetClient startup
+Oct 07, 2024 11:37:50 AM getclient.GetClient startup
 INFO: Server started on localhost:4567 for Station ID: null
-Oct 06, 2024 11:16:50 PM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:37:50 AM getclient.GetClient sendGetRequest
 INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 06, 2024 11:16:50 PM getclient.GetClient sendGetRequest
-INFO: No server response.
-Oct 06, 2024 11:16:50 PM getclient.GetClient shutdown
-INFO: Server shut down successfully.
-Oct 06, 2024 11:18:07 PM getclient.GetClient startup
-INFO: Server started on localhost:4567 for Station ID: null
-Oct 06, 2024 11:18:07 PM getclient.GetClient sendGetRequest
-INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 06, 2024 11:19:08 PM getclient.GetClient sendGetRequest
-SEVERE: Error while sending PUT request
-java.net.SocketException: Connection reset
-	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:318)
-	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346)
-	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796)
-	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:1108)
-	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1095)
-	at java.base/sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:350)
-	at java.base/sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:393)
-	at java.base/sun.nio.cs.StreamDecoder.lockedRead(StreamDecoder.java:217)
-	at java.base/sun.nio.cs.StreamDecoder.read(StreamDecoder.java:171)
-	at java.base/java.io.InputStreamReader.read(InputStreamReader.java:186)
-	at java.base/java.io.BufferedReader.fill(BufferedReader.java:160)
-	at java.base/java.io.BufferedReader.implReadLine(BufferedReader.java:370)
-	at java.base/java.io.BufferedReader.readLine(BufferedReader.java:347)
-	at java.base/java.io.BufferedReader.readLine(BufferedReader.java:436)
-	at getclient.GetClient.sendGetRequest(GetClient.java:115)
-	at getclient.GetClient.makeGetRequest(GetClient.java:95)
-	at getclient.GetClient.run(GetClient.java:72)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-
-Oct 06, 2024 11:19:08 PM getclient.GetClient shutdown
-INFO: Server shut down successfully.
-Oct 06, 2024 11:19:17 PM getclient.GetClient startup
-INFO: Server started on localhost:4567 for Station ID: null
-Oct 06, 2024 11:19:17 PM getclient.GetClient sendGetRequest
-INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 06, 2024 11:21:03 PM getclient.GetClient startup
-INFO: Server started on localhost:4567 for Station ID: null
-Oct 06, 2024 11:21:03 PM getclient.GetClient sendGetRequest
-INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 07, 2024 8:41:42 AM getclient.GetClient startup
-INFO: Server started on localhost:4567 for Station ID: null
-Oct 07, 2024 8:41:42 AM getclient.GetClient sendGetRequest
-INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 07, 2024 8:41:42 AM getclient.GetClient sendGetRequest
-INFO: Server response: HTTP/1.1 404 Not Found
-Content-Type: text/plain
-Content-Length: 30
-
-{"error":"Resource not found"}
-
-Oct 07, 2024 8:41:42 AM getclient.GetClient shutdown
-INFO: Server shut down successfully.
-Oct 07, 2024 8:49:18 AM getclient.GetClient startup
-INFO: Server started on localhost:4567 for Station ID: null
-Oct 07, 2024 8:49:18 AM getclient.GetClient sendGetRequest
-INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 07, 2024 8:49:18 AM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:37:51 AM getclient.GetClient sendGetRequest
 SEVERE: Error while sending PUT request
 java.net.ConnectException: Connection refused
 	at java.base/sun.nio.ch.Net.connect0(Native Method)
@@ -79,23 +22,72 @@ java.net.ConnectException: Connection refused
 	at java.base/java.net.Socket.connect(Socket.java:687)
 	at java.base/java.net.Socket.<init>(Socket.java:556)
 	at java.base/java.net.Socket.<init>(Socket.java:325)
-	at getclient.GetClient.sendGetRequest(GetClient.java:104)
-	at getclient.GetClient.makeGetRequest(GetClient.java:95)
-	at getclient.GetClient.run(GetClient.java:72)
+	at getclient.GetClient.sendGetRequest(GetClient.java:120)
+	at getclient.GetClient.makeGetRequest(GetClient.java:92)
+	at getclient.GetClient.run(GetClient.java:69)
 	at java.base/java.lang.Thread.run(Thread.java:1570)
 
-Oct 07, 2024 8:49:18 AM getclient.GetClient shutdown
+Oct 07, 2024 11:37:51 AM getclient.GetClient shutdown
 INFO: Server shut down successfully.
-Oct 07, 2024 8:49:53 AM getclient.GetClient startup
+Oct 07, 2024 11:38:09 AM getclient.GetClient startup
 INFO: Server started on localhost:4567 for Station ID: null
-Oct 07, 2024 8:49:53 AM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:38:09 AM getclient.GetClient sendGetRequest
 INFO: Sending GET request to localhost:4567 for Station ID: null
-Oct 07, 2024 8:49:53 AM getclient.GetClient sendGetRequest
+Oct 07, 2024 11:38:10 AM getclient.GetClient sendGetRequest
+SEVERE: Error while sending PUT request
+java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:589)
+	at java.base/sun.nio.ch.Net.connect(Net.java:578)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:752)
+	at java.base/java.net.Socket.connect(Socket.java:687)
+	at java.base/java.net.Socket.<init>(Socket.java:556)
+	at java.base/java.net.Socket.<init>(Socket.java:325)
+	at getclient.GetClient.sendGetRequest(GetClient.java:120)
+	at getclient.GetClient.makeGetRequest(GetClient.java:92)
+	at getclient.GetClient.run(GetClient.java:69)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+
+Oct 07, 2024 11:38:10 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:39:31 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:39:31 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:39:31 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:39:31 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:40:16 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:40:16 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:40:16 AM getclient.GetClient sendGetRequest
 INFO: Server response: HTTP/1.1 404 Not Found
 Content-Type: text/plain
-Content-Length: 30
+Content-Length: 32
 
-{"error":"Resource not found"}
+{"error":"No recent data found"}
 
-Oct 07, 2024 8:49:53 AM getclient.GetClient shutdown
+Oct 07, 2024 11:40:16 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:40:26 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:40:26 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:40:26 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:40:26 AM getclient.GetClient shutdown
 INFO: Server shut down successfully.
