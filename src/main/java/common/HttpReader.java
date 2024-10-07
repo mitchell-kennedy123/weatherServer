@@ -9,7 +9,7 @@ public class HttpReader {
 
   private String method;
   private String path;
-  private String httpVersion; // DOnt need
+  private String httpVersion;
   private Map<String, String> headers;
   private String body;
 
@@ -47,12 +47,11 @@ public class HttpReader {
   public void parseRequest(BufferedReader in) throws IOException {
     String line = in.readLine();
 
-    // Check if line is null (no data to read) to avoid NullPointerException
     if (line == null) {
       throw new IOException("No data in the request. BufferedReader returned null.");
     }
 
-    // First line should be the request line (method, path, version)
+    // First line should be (method, path, version)
     String[] requestLine = line.split(" ");
     if (requestLine.length == 3) {
       method = requestLine[0];
@@ -68,7 +67,7 @@ public class HttpReader {
       }
     }
 
-    // If Content-Length is present, read the body
+    // If Content-Length is in the header, read the body
     if (headers.containsKey("Content-Length")) {
       int contentLength = Integer.parseInt(headers.get("Content-Length"));
       char[] bodyChars = new char[contentLength];
@@ -76,8 +75,6 @@ public class HttpReader {
       body = new String(bodyChars);
     }
   }
-
-  // need to parse response
 
   @Override
   public String toString() {

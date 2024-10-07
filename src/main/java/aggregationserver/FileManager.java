@@ -18,21 +18,13 @@ public class FileManager {
 
     private final BlockingQueue<WriteRequest> writeQueue;
     private final ConcurrentHashMap<String, Long> lastUpdateTimestamps; // To track last update time
-    private final PriorityQueue<WriteRequest> writePriorityQueue; // To manage oldest requests
     private final File storageDirectory;
     private volatile boolean isRunning;
 
     public FileManager(String storagePath) {
         this.writeQueue = new LinkedBlockingQueue<>();
         this.lastUpdateTimestamps = new ConcurrentHashMap<>();
-        this.writePriorityQueue = new PriorityQueue<>(Comparator.comparing(WriteRequest::timestamp));
         this.storageDirectory = new File(storagePath);
-
-        if (!storageDirectory.exists()) {
-            if (!storageDirectory.mkdirs()) {
-                logger.severe("Failed to create storage directory.");
-            }
-        }
     }
 
     public void start() {
@@ -100,15 +92,16 @@ public class FileManager {
             writeQueue.put(request);
             lastUpdateTimestamps.put(request.stationId(), System.currentTimeMillis());
 
-            // Add to the priority queue for ordering by timestamp
-            writePriorityQueue.add(request);
-
             logger.info("Added write request for station ID: " + request.stationId());
 
-            // If more than 20 entries, remove the oldest
-            if (writePriorityQueue.size() > MAX_ENTRIES) {
-                WriteRequest oldestRequest = writePriorityQueue.poll();
-                deleteOldestEntry(oldestRequest.stationId());
+            // If more than MAX_ENTRIES entries, remove the oldest
+            if (lastUpdateTimestamps.size() > MAX_ENTRIES) {
+                Map.Entry<String, Long> oldestRequest = lastUpdateTimestamps.entrySet()
+                        .stream()
+                        .min(Map.Entry.comparingByValue())
+                        .orElse(null); // Handle case where map is empty
+                String oldestRequestID = oldestRequest.getKey();
+                deleteOldestEntry(oldestRequestID);
             }
         } catch (InterruptedException e) {
             logger.log(Level.SEVERE, "Failed to add write request to the queue.", e);
@@ -118,7 +111,8 @@ public class FileManager {
     private void processWriteRequests() {
         while (isRunning) {
             try {
-                WriteRequest request = writeQueue.take(); // Blocks until a request is available
+                // Blocks until a request is available to avoid race conditions
+                WriteRequest request = writeQueue.take();
                 processWriteRequest(request);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

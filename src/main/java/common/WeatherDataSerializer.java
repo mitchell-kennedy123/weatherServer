@@ -6,7 +6,6 @@ import java.util.Map;
 public class WeatherDataSerializer {
   private Map<String, String> data;
 
-  // Constructor to initialize the data map
   public WeatherDataSerializer() {
     data = new LinkedHashMap<>();
   }
@@ -19,7 +18,7 @@ public class WeatherDataSerializer {
     this.data = data;
   }
 
-  // Method to convert the data into a JSON-like string manually
+  // Convert the data into a JSON string manually
   public String toJson() {
     StringBuilder jsonBuilder = new StringBuilder();
     jsonBuilder.append("{\n");
@@ -36,7 +35,7 @@ public class WeatherDataSerializer {
     return jsonBuilder.toString();
   }
 
-  // Method to populate the data map from a JSON string manually
+  // Populate the data map from a JSON string
   public static WeatherDataSerializer extractDataFromJson(String jsonString) {
     WeatherDataSerializer weatherDataSerializer = new WeatherDataSerializer();
     jsonString = jsonString.trim();
@@ -55,7 +54,7 @@ public class WeatherDataSerializer {
     return weatherDataSerializer;
   }
 
-  // Method to convert the weather data to the text format manually
+  // Convert the weather data to the text format
   public String toTxt() {
     StringBuilder txtBuilder = new StringBuilder();
     for (Map.Entry<String, String> entry : data.entrySet()) {
@@ -64,7 +63,7 @@ public class WeatherDataSerializer {
     return txtBuilder.toString();
   }
 
-  // Method to populate the data map from a text string manually
+  // Populate the data map from a text string
   public static WeatherDataSerializer extractDataFromTxt(String txtString) {
     WeatherDataSerializer weatherDataSerializer = new WeatherDataSerializer();
     String[] lines = txtString.split("\n");

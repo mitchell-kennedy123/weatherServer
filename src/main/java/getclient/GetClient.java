@@ -5,13 +5,11 @@ import common.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GetClient implements NetworkNode, Runnable {
 
-    // Logger instance
     private static final Logger logger = Logger.getLogger(GetClient.class.getName());
 
     private String serverAddress;
@@ -21,6 +19,14 @@ public class GetClient implements NetworkNode, Runnable {
     private Boolean isRunning;
     private ServerSocket serverSocket;
 
+    /**
+     * Constructor for GetClient.
+     * Initializes the client with server address, port, and station ID.
+     *
+     * @param serverAddress The IP address of the server to connect to.
+     * @param port The port number of the server.
+     * @param stationID The station ID for which weather data is requested.
+     */
     public GetClient(String serverAddress, int port, String stationID) {
         this.serverAddress = serverAddress != null ? serverAddress : DEFAULT_SERVER_ADDRESS;
         this.port = port;
@@ -70,7 +76,11 @@ public class GetClient implements NetworkNode, Runnable {
         shutdown();  // Ensure shutdown when the loop exits
     }
 
-    // Method to build an HTTP request for PUT operation
+    /**
+     * Builds an HTTP GET request for weather data in JSON format.
+     *
+     * @return String - HTTP GET request
+     */
     private String jsonHttpRequest() {
         HttpWriter httpWriter = new HttpWriter();
         if (stationID!=null) {
@@ -85,17 +95,21 @@ public class GetClient implements NetworkNode, Runnable {
             .toString();
     }
 
+    /**
+     * Sends the GET request to the server and processes the response.
+     * Converts the response into a readable format and prints to the command line.
+     */
     private void makeGetRequest() {
         try {
             // Send the HTTP request
             String httpRequest = jsonHttpRequest();
             String httpResponse = sendGetRequest(httpRequest);
 
-            if (httpResponse == null) {//TODO try again
+            if (httpResponse == null) {
                 return;
             }
-            // Safely split the response
-            String[] httpsParts = httpResponse.split("\\{", 2); // Split only at the first occurrence of '{'
+            //  Split the response
+            String[] httpsParts = httpResponse.split("\\{", 2);
             String data = (httpsParts.length > 1) ? "{" + httpsParts[1] : null; // Ensure the JSON part is correctly formatted
 
             // Display Data
@@ -104,7 +118,7 @@ public class GetClient implements NetworkNode, Runnable {
                 WeatherDataSerializer weatherData = WeatherDataSerializer.extractDataFromJson(data);
                 outputStr = weatherData.toTxt();
             } else {
-                outputStr = "No Data Found";
+                outputStr = "No Data Received";
             }
             System.out.println("Data Received from: " + serverAddress + "\n\n" + outputStr);
 
@@ -115,6 +129,12 @@ public class GetClient implements NetworkNode, Runnable {
         }
     }
 
+    /**
+     * Sends the GET request reads the server's response.
+     *
+     * @param httpRequest String - the HTTP GET request.
+     * @return String - the server's response.
+     */
     private String sendGetRequest(String httpRequest) {
         logger.info("Sending GET request to " + serverAddress + ":" + port + " for Station ID: " + stationID);
         try (Socket socket = new Socket(serverAddress, port);
@@ -128,12 +148,11 @@ public class GetClient implements NetworkNode, Runnable {
             // Read the server's response
             StringBuilder response = new StringBuilder();
             String responseLine;
-            String statusLine = in.readLine();  // Read the status line (e.g., HTTP/1.1 200 OK)
+            String statusLine = in.readLine();  // Read the status line (HTTP/1.1 200 OK)
             if (statusLine != null) {
                 response.append(statusLine).append("\n");
             } else {
                 logger.info("No server response.");
-                // TODO: Retry after some amount of time
                 return null;
             }
 
@@ -156,7 +175,12 @@ public class GetClient implements NetworkNode, Runnable {
         }
     }
 
-    // Form server:port stationID
+    /**
+     * Initializes the server with command-line arguments, creates a thread to run it,
+     * and starts the server.
+     *
+     * @param args String[] - command-line arguments: <server:port> <stationID (optional)>.
+     */
     public static void main(String[] args) {
         if (args.length < 1 || args.length > 2) {
             System.err.println("Usage: GETClient <server:port stationID>");

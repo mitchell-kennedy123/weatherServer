@@ -1,7 +1,9 @@
 
 # Assignment 2
 
-TODO: Description 
+Building an aggregation server with consistency management and a RESTful API.
+
+See the build instructions and test documentation below.
 
 ### Bonus Marks - JSON Parsing
 
@@ -51,13 +53,30 @@ mvn exec:java -Dexec.mainClass="contentserver.ContentServer" -Dexec.args="localh
 mvn exec:java -Dexec.mainClass="getclient.GetClient" -Dexec.args="localhost:4567 weather"
 ```
 
-# Testing Strategy
-
-This document outlines the testing strategy and architecture used to ensure the functionality, reliability, and performance of the system components. Our tests cover the main functionalities across server management, client handling, file management, and data serialization. Each test has been crafted to ensure that all core components behave as expected in various scenarios.
-
 ## List of Tests
 
 These test cases can be found in the `test/java` directory. They were run using maven in IntelliJ.
+
+All tests can be run using `mvn test`. (note some test will take about 30 seconds to wait for timeout)
+
+In the `LoggerSetup.java` file it is recommended setting the debug to SEVERE when running all tests.
+
+### 0. Command Line Parsing
+- Command line parsing testing is provided through the above section on running the servers in the command line.
+
+
+### 1. Integration Testing
+Given the complex output of integration tests, verification is done manually.
+The files from the `data/AggregationServerData` can be manually inspected and deleted after each test.
+
+- 
+
+
+### 1. AggregationServer
+- **Test Case**: Server Startup
+- **Test Case**: Server Shutdown
+- **Test Case**: Aggregation of Data from Multiple Clients
+  - Expected Outcome: Data is correctly aggregated and stored.
 
 ### 1. ContentServer 
 - **Test Case 10**: Start ContentServer and Validate Initialization
@@ -71,13 +90,7 @@ These test cases can be found in the `test/java` directory. They were run using 
 - **Test Case 11**: Handle Invalid Paths in GET Request
    - Expected Outcome: 404 error returned for invalid path requests.
 
-### 3. AggregationServer
-- **Test Case 1**: Start Server and Handle Initial Connections
-   - Expected Outcome: Server logs successful initialization and client connection.
-- **Test Case 2**: Handle Multiple Client Connections
-   - Expected Outcome: Server handles multiple connections without crashing.
-- **Test Case 3**: Aggregation of Data from Multiple Clients
-   - Expected Outcome: Data is correctly aggregated and stored.
+
 
 ### 4. ClientHandler
 - **Test Case 4**: Handle GET Request for Existing Data

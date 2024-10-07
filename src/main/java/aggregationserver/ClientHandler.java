@@ -42,7 +42,7 @@ class ClientHandler implements Runnable {
                 server.handleGetRequest(request, in, out);
             } else {
                 int status = StatusCodes.BAD_REQUEST;
-                // Send response back to the client
+                // Send bad request response back to the client as http request was invalid
                 String statusText = StatusCodes.getStatusText(status);
                 String statusMessage = StatusCodes.getStatusMessage(status);
                 server.sendResponse(out, status, statusText, statusMessage);

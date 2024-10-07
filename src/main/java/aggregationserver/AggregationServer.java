@@ -4,10 +4,7 @@ import common.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.logging.*;
-
-
 
 public class AggregationServer implements NetworkNode, Runnable {
 
@@ -18,8 +15,15 @@ public class AggregationServer implements NetworkNode, Runnable {
   private final LamportClock lamportClock;
   private boolean isRunning;
   private ServerSocket serverSocket;
-  private final FileManager fileManager; // Add the FileManager
+  private final FileManager fileManager;
 
+  /**
+   * Constructor for AggregationServer
+   * Initializes the server with a specified address and port. Sets up LamportClock and FileManager.
+   *
+   * @param serverAddress The IP address where the server will be running.
+   * @param port The port number to listen for incoming connections.
+   */
   public AggregationServer(String serverAddress, int port) {
     this.serverAddress = serverAddress;
     this.port = port;
@@ -29,13 +33,15 @@ public class AggregationServer implements NetworkNode, Runnable {
     LoggerSetup.setupLogger(logger, "logs/aggregation-server.log");
   }
 
+
   @Override
   public boolean startup() {
     isRunning = true;
-    fileManager.start(); // Start the FileManager
+    fileManager.start();
     logger.info("Aggregation Server started on " + serverAddress + ":" + port);
     return true;
   }
+
 
   @Override
   public boolean shutdown() {
@@ -45,7 +51,7 @@ public class AggregationServer implements NetworkNode, Runnable {
       if (serverSocket != null && !serverSocket.isClosed()) {
         serverSocket.close();
       }
-      fileManager.shutdown(); // Shutdown the FileManager
+      fileManager.shutdown();
       logger.info("Aggregation Server shutting down.");
     } catch (IOException e) {
       logger.log(Level.SEVERE, "Error while shutting down the server socket", e);
@@ -74,7 +80,16 @@ public class AggregationServer implements NetworkNode, Runnable {
     return this.lamportClock;
   }
 
-  // Handle incoming PUT requests
+  /**
+   * Handles an incoming PUT request.
+   * Extracts the Lamport timestamp and weather data from the request, updates the LamportClock,
+   * and stores the data using the FileManager.
+   *
+   * @param request HttpReader - the incoming HTTP request with the PUT data.
+   * @param in BufferedReader - the input stream reader to read data.
+   * @param out PrintWriter - the output stream writer to send responses.
+   * @return int - the HTTP status code.
+   */
   public int handlePutRequest(HttpReader request, BufferedReader in, PrintWriter out) {
     // Extract data from request
     int requestLamportTimestamp = Integer.parseInt(request.getHeader("Lamport-Timestamp"));
@@ -90,12 +105,20 @@ public class AggregationServer implements NetworkNode, Runnable {
     String statusText = StatusCodes.getStatusText(200);
     String statusMessage = StatusCodes.getStatusMessage(200);
     sendResponse(out, 200, statusText, statusMessage);
+
     // Check is first entry for status codes
-    boolean isFirstEntry = true; // TODO fix this
-    return isFirstEntry ? StatusCodes.CREATED : StatusCodes.OK;
+    return 200;
   }
 
-  // Handle incoming GET requests
+  /**
+   * Handles an incoming GET request.
+   * Retrieves weather data based on the station ID, and sends it back to the client.
+   *
+   * @param request HttpReader - the incoming HTTP request with the GET data.
+   * @param in BufferedReader - the input stream reader to read data.
+   * @param out PrintWriter - the output stream writer to send responses.
+   * @return int - the HTTP status code.
+   */
   public int handleGetRequest(HttpReader request, BufferedReader in, PrintWriter out) {
     String stationId = request.getHeader("Station-Id");
 
@@ -129,7 +152,14 @@ public class AggregationServer implements NetworkNode, Runnable {
     }
   }
 
-  // Send HTTP response to the client
+  /**
+   * Sends an HTTP response to the client.
+   *
+   * @param out PrintWriter - the output stream writer to send responses to the client.
+   * @param statusCode int - the HTTP status code
+   * @param statusText String - the status text (200 -> "OK").
+   * @param message String - the body of the response message.
+   */
   public void sendResponse(PrintWriter out, int statusCode, String statusText, String message) {
     out.println("HTTP/1.1 " + statusCode + " " + statusText);
     out.println("Content-Type: text/plain");
@@ -143,7 +173,10 @@ public class AggregationServer implements NetworkNode, Runnable {
     listen();
   }
 
-  // Start listening for incoming connections
+  /**
+   * Listens for incoming client connections.
+   * Starts a new thread for each client connection and handles it using ClientHandler.
+   */
   private void listen() {
     try {
       serverSocket = new ServerSocket(port);
@@ -161,7 +194,12 @@ public class AggregationServer implements NetworkNode, Runnable {
     }
   }
 
-  // Usage <port>
+  /**
+   * Reads the port from the command-line arguments and starts the server
+   * and gracefully stop the server.
+   *
+   * @param args String[] - command-line arguments: <port (optional)>
+   */
   public static void main(String[] args) {
     int port = NetworkNode.DEFAULT_PORT;
     if (args.length > 0) {
@@ -178,7 +216,7 @@ public class AggregationServer implements NetworkNode, Runnable {
     Thread serverThread = new Thread(server);
     serverThread.start();
 
-    // Add shutdown hook to gracefully shut down the server when the program is terminated
+    // Add shutdown hook to gracefully shut down the server when the program is terminated (kill signal)
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
       logger.info("Shutdown hook triggered.");
       server.shutdown();

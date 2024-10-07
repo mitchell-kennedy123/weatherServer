@@ -5,7 +5,8 @@ import java.util.logging.*;
 
 public class LoggerSetup {
 
-    // Static method to set up the logger configuration
+    static Level toConsoleLogLevel = Level.SEVERE;
+
     public static void setupLogger(Logger logger, String logFilePath) {
         try {
             // File handler for logging into a file
@@ -14,14 +15,13 @@ public class LoggerSetup {
 
             // Console handler for logging to console
             ConsoleHandler consoleHandler = new ConsoleHandler();
-            consoleHandler.setLevel(Level.INFO);
+            consoleHandler.setLevel(toConsoleLogLevel);
 
-            // Add handlers to the logger
+
             logger.addHandler(fileHandler);
             logger.addHandler(consoleHandler);
 
-            logger.setLevel(Level.ALL);  // Log everything from ALL to SEVERE
-            logger.setUseParentHandlers(false);  // Disable default console logging
+            logger.setLevel(Level.SEVERE);
 
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error setting up logger", e);
