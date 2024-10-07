@@ -5,7 +5,7 @@ import java.util.logging.*;
 
 public class LoggerSetup {
 
-    static Level toConsoleLogLevel = Level.SEVERE;
+    static Level toConsoleLogLevel = Level.ALL;
 
     public static void setupLogger(Logger logger, String logFilePath) {
         try {
@@ -21,10 +21,10 @@ public class LoggerSetup {
             logger.addHandler(fileHandler);
             logger.addHandler(consoleHandler);
 
-            logger.setLevel(Level.SEVERE);
+            logger.setLevel(Level.ALL);
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error setting up logger", e);
+            logger.log(Level.ALL, "Error setting up logger", e);
         }
     }
 }
