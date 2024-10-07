@@ -9,7 +9,7 @@ My JSON parser functionality for the bonus marks is within the `common/WeatherDa
 
 ### Initial Design Sketch
 
-The initial design sketch `designSketch.pdf` can be found in the root of the project directory.
+The initial design sketch `DesignSketchWeatherServer.pdf` can be found in the root of the project directory.
 
 ### Changes from draft (Instead of Changes.pdf)
 

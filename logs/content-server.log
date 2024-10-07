@@ -58,3 +58,63 @@ OK - Successful PUT/GET request
 
 Oct 07, 2024 11:40:23 AM contentserver.ContentServer shutdown
 INFO: Content Server shutting down.
+Oct 07, 2024 11:56:15 AM contentserver.ContentServer startup
+INFO: Content Server started on localhost:4567
+Oct 07, 2024 11:56:15 AM contentserver.ContentServer readFileToWeatherData
+INFO: Reading weather data from file: ./data/ContentServerData/weather.txt
+Oct 07, 2024 11:56:15 AM contentserver.ContentServer sendPutRequest
+INFO: Sending PUT request to localhost:4567
+Oct 07, 2024 11:56:15 AM contentserver.ContentServer sendPutRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 31
+
+OK - Successful PUT/GET request
+
+Oct 07, 2024 11:56:15 AM contentserver.ContentServer shutdown
+INFO: Content Server shutting down.
+Oct 07, 2024 11:56:27 AM contentserver.ContentServer startup
+INFO: Content Server started on localhost:4567
+Oct 07, 2024 11:56:27 AM contentserver.ContentServer readFileToWeatherData
+INFO: Reading weather data from file: ./data/ContentServerData/weather.txt
+Oct 07, 2024 11:56:27 AM contentserver.ContentServer sendPutRequest
+INFO: Sending PUT request to localhost:4567
+Oct 07, 2024 11:56:27 AM contentserver.ContentServer sendPutRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 31
+
+OK - Successful PUT/GET request
+
+Oct 07, 2024 11:56:27 AM contentserver.ContentServer shutdown
+INFO: Content Server shutting down.
+Oct 07, 2024 11:56:52 AM contentserver.ContentServer startup
+INFO: Content Server started on localhost:4567
+Oct 07, 2024 11:56:52 AM contentserver.ContentServer readFileToWeatherData
+INFO: Reading weather data from file: ./data/ContentServerData/weather.txt
+Oct 07, 2024 11:56:52 AM contentserver.ContentServer sendPutRequest
+INFO: Sending PUT request to localhost:4567
+Oct 07, 2024 11:56:52 AM contentserver.ContentServer sendPutRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 31
+
+OK - Successful PUT/GET request
+
+Oct 07, 2024 11:56:52 AM contentserver.ContentServer shutdown
+INFO: Content Server shutting down.
+Oct 07, 2024 11:56:58 AM contentserver.ContentServer startup
+INFO: Content Server started on localhost:4567
+Oct 07, 2024 11:56:58 AM contentserver.ContentServer readFileToWeatherData
+INFO: Reading weather data from file: ./data/ContentServerData/weather.txt
+Oct 07, 2024 11:56:58 AM contentserver.ContentServer sendPutRequest
+INFO: Sending PUT request to localhost:4567
+Oct 07, 2024 11:56:58 AM contentserver.ContentServer sendPutRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 31
+
+OK - Successful PUT/GET request
+
+Oct 07, 2024 11:56:58 AM contentserver.ContentServer shutdown
+INFO: Content Server shutting down.

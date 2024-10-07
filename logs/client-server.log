@@ -91,3 +91,81 @@ Content-Length: 372
 
 Oct 07, 2024 11:40:26 AM getclient.GetClient shutdown
 INFO: Server shut down successfully.
+Oct 07, 2024 11:56:19 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:19 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:19 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:56:19 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:56:23 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:23 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:23 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:56:23 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:56:29 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:29 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:29 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:56:29 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:56:55 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:55 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:56:55 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:56:55 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:57:00 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:57:00 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:57:00 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:57:00 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
+Oct 07, 2024 11:57:02 AM getclient.GetClient startup
+INFO: Server started on localhost:4567 for Station ID: null
+Oct 07, 2024 11:57:02 AM getclient.GetClient sendGetRequest
+INFO: Sending GET request to localhost:4567 for Station ID: null
+Oct 07, 2024 11:57:02 AM getclient.GetClient sendGetRequest
+INFO: Server response: HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 372
+
+{	"id" : "IDS60901",	"name" : "Adelaide (West Terrace /  ngayirdapira)",	"state" : "SA",	"time_zone" : "CST",	"lat" : "-34.9",	"lon" : "138.6",	"local_date_time_full" : "2023071516000",	"air_temp" : "13.3",	"apparent_t" : "9.5",	"cloud" : "Partly cloudy",	"dewpt" : "5.7",	"press" : "1023.9",	"rel_hum" : "60",	"wind_dir" : "S",	"wind_spd_kmh" : "15",	"wind_spd_kt" : "8"}
+
+Oct 07, 2024 11:57:02 AM getclient.GetClient shutdown
+INFO: Server shut down successfully.
