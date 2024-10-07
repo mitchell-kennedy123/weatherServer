@@ -1,4 +1,3 @@
-
 # Assignment 2
 
 Building an aggregation server with consistency management and a RESTful API.
@@ -7,7 +6,7 @@ See the build instructions and test documentation below.
 
 ### Bonus Marks - JSON Parsing
 
-My JSON parser functionality for the bonus marks is within the `common/WeatherDataSerializer` class. 
+My JSON parser functionality for the bonus marks is within the `common/WeatherDataSerializer` class and is tested in the `WeatherDataSerializerTest` class.
 
 ### Initial Design Sketch
 
@@ -57,73 +56,31 @@ mvn exec:java -Dexec.mainClass="getclient.GetClient" -Dexec.args="localhost:4567
 
 These test cases can be found in the `test/java` directory. They were run using maven in IntelliJ.
 
-All tests can be run using `mvn test`. (note some test will take about 30 seconds to wait for timeout)
+All tests can be run using `mvn test`. (note some test will take upwards of 30 seconds to test delays)
 
 In the `LoggerSetup.java` file it is recommended setting the debug to SEVERE when running all tests.
 
-### 0. Command Line Parsing
+### 1. Command Line Parsing
 - Command line parsing testing is provided through the above section on running the servers in the command line.
 
 
-### 1. Integration Testing
+### 2. Integration Testing
 Given the complex output of integration tests, verification is done manually.
 The files from the `data/AggregationServerData` can be manually inspected and deleted after each test.
 
-- 
+`ServerIntegrationTest` Tests the integration of AggregationServer, ContentServer, and GetClient.
 
+- **testPutRequest**: Sends a PUT request to store data.
+- **testPutAndGetRequestByID**: Verifies data can be retrieved by station ID.
+- **testPutAndGetRequestByLatest**: Verifies the most recent data is retrieved.
+- **testManyPutRequests**: Tests 25 PUT requests and checks the server keeps only the latest 20 entries.
+- **testPutRequestsWithDelay**: Tests file cleanup by sending two PUT requests with a delay and checks if outdated files are removed.
 
-### 1. AggregationServer
-- **Test Case**: Server Startup
-- **Test Case**: Server Shutdown
-- **Test Case**: Aggregation of Data from Multiple Clients
-  - Expected Outcome: Data is correctly aggregated and stored.
+### 3. Unit Testing for JSON Parser
 
-### 1. ContentServer 
-- **Test Case 10**: Start ContentServer and Validate Initialization
-   - Expected Outcome: ContentServer logs successful startup.
-- **Test Case 11**: Handle Invalid Paths in GET Request
-   - Expected Outcome: 404 error returned for invalid path requests.
+`WeatherDataSerializerTest` Tests the JSON parser and text converter.
 
-### 2. GetClient
-- **Test Case 10**: Start ContentServer and Validate Initialization
-   - Expected Outcome: ContentServer logs successful startup.
-- **Test Case 11**: Handle Invalid Paths in GET Request
-   - Expected Outcome: 404 error returned for invalid path requests.
-
-
-
-### 4. ClientHandler
-- **Test Case 4**: Handle GET Request for Existing Data
-   - Expected Outcome: Correct data is returned with a 200 status.
-- **Test Case 5**: Handle GET Request for Non-existing Data
-   - Expected Outcome: 404 error returned for non-existing station ID.
-- **Test Case 6**: Handle POST Request to Add Data
-   - Expected Outcome: Data is successfully added, and 200 status returned.
-
-### 5. FileManager
-- **Test Case 7**: Writing Data to File
-   - Expected Outcome: Data is written correctly, and no race conditions occur.
-- **Test Case 8**: Reading Data from File
-   - Expected Outcome: Correct data is retrieved from the file.
-- **Test Case 9**: Handle Expired Files Cleanup
-   - Expected Outcome: Expired files are cleaned up, and logs reflect this.
-
-## Unit Testing for Utility Classes
-
-### 1. HttpReader
-- **Test Case 12**: Valid GET Request Handling
-   - Expected Outcome: GET request processed correctly, and response sent.
-- **Test Case 13**: Invalid Request Handling
-   - Expected Outcome: 400 error returned for malformed requests.
-
-### 2. HttpWriter
-- **Test Case 12**: Valid GET Request Handling
-   - Expected Outcome: GET request processed correctly, and response sent.
-- **Test Case 13**: Invalid Request Handling
-   - Expected Outcome: 400 error returned for malformed requests.
-
-### 2. WeatherDataSerializer
-- **Test Case 14**: JSON to WeatherData Object Parsing
-   - Expected Outcome: JSON data correctly parsed into WeatherData object.
-- **Test Case 15**: WeatherData Object to JSON Conversion
-   - Expected Outcome: WeatherData object serialized back into correct JSON format.
+- **testToJson**: Verifies that data is correctly converted to JSON format.
+- **testExtractDataFromJson**: Verifies data extraction from a JSON string.
+- **testToTxt**: Verifies the conversion of data to text format.
+- **testExtractDataFromTxt**: Verifies data extraction from a text string.
